@@ -1,10 +1,11 @@
 {
   "users": [
     {
-      "id": "oOGeWSOND",
-      "username": "moneybot187",
-      "csrfToken": "av79hdoCYd5MkIBcIT6EsdrvJ9ojkpHZ",
-      "sessionId": "1381938554%3AiHgG7VkCVskEP7%3A7",
+      "id": "bN4TBC50S",
+      "username": "szybka_zaba",
+      "password": "76c3c35cfd9090ca8d5f98ec3056a5518915dce0bb0df2d39131a70506a0a690",
+      "csrfToken": "usWWzL45HPDrwaoQmF3M9yWZ2u8ulrpW",
+      "sessionId": "8547510660%3AmlBryLGxFU5SWM%3A0",
       "isActive": true
     }
   ]

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const shortid = require('shortid');
+const sha256 = require('sha256');
 let Instagram = require('instagram-nodejs-without-api');
 
 const low = require('lowdb')
@@ -31,10 +32,12 @@ const getUser = (login, password) => {
             Insta.auth(login, password).then(sessionId => {
               if(sessionId) {
                 Insta.sessionId = sessionId            //store sessionId & csrf
-                var _user = 
+
+                var _user =
                 {
                   id: shortid.generate(),
                   username: login,
+                  password: sha256(password),
                   csrfToken: Insta.csrfToken,
                   sessionId: Insta.sessionId,
                   isActive: true
@@ -60,18 +63,31 @@ async function doLogin (login, password, res) {
   .find({ username: login })
   .value();
 
-  console.log('First user:' + user);
+  var user_by_login_and_pass = db.get('users').find({username: login, password: sha256(password)}).value();
+  console.log('First user: ' + user);
+  console.log('Second user: ' + user_by_login_and_pass);
   
-
-  if(user === undefined) {
+  var bPasswordChanged = (user !== undefined && user_by_login_and_pass === undefined);
+  var idUserPasswordChanged = '';
+  if(bPasswordChanged) {
+    idUserPasswordChanged = user.id;
+  }
+  if(user === undefined || bPasswordChanged) {
     console.log('user === undefined')
+      var old_user = user;
       user = await getUser(login, password);
       if(user !== undefined) {
         console.log('ret true 1')
 
-      db.get('users')
+      if(bPasswordChanged) {
+        db.get('users').find({id: idUserPasswordChanged}).assign({csrfToken: user.csrfToken, sessionId: user.sessionId, password: user.password}).write();
+        user = db.get('users').find({id: idUserPasswordChanged}).value();
+      } else {
+        db.get('users')
         .push(user)
         .write();
+      }
+
         res.statusCode = 200;
         res.send({status: 'ok', user: user});
         return;
@@ -86,15 +102,13 @@ async function doLogin (login, password, res) {
   console.log('ret true 2');
   res.statusCode = 200;
   res.send({status: 'ok', user: user});
-    
+
  }
 
 router.post('/login_instagram', function(req, res, next){
   var login = req.param('login', null);
   var password = req.param('password', null);
   res.cookie('ig_cb', 1);
-
-  console.log('login: '+login+' password: '+password);
 
   doLogin(login, password, res);
 });
