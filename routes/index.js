@@ -44,10 +44,13 @@ const getUser = (login, password) => {
 
                 resolve(_user);
               }
-              else
+              else {
+                console.log('couldnt get user');
                 resolve(undefined);
-      });
-    });
+              }
+                
+      }).catch(console.error);
+    }).catch(console.error);
 });
   
  }

@@ -1,4 +1,11 @@
 {
   "users": [
+    {
+      "id": "oOGeWSOND",
+      "username": "moneybot187",
+      "csrfToken": "av79hdoCYd5MkIBcIT6EsdrvJ9ojkpHZ",
+      "sessionId": "1381938554%3AiHgG7VkCVskEP7%3A7",
+      "isActive": true
+    }
   ]
 }
