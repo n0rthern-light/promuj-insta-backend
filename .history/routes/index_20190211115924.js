@@ -125,13 +125,12 @@ router.post('/request_user_from_token', function(req, res, next){
   var key = '#m@RB^.q&Q.SP^.!';
   var d = new Date();
   var n = d.getUTCHours();
-  var token = req.param('token', null);
   users.forEach(function(user){
     //user id + hashed pw + UTC h
-    var token_of_user = sha256.hmac(key, user.id + user.password+n);
+    var token_of_user = sha256.hmac(key, user.id + user.password);
     console.log('BE:'+token_of_user);
-    console.log('FE:' + token);
-    if (token === token_of_user) {
+    console.log('FE:' + token_of_user);
+    if (req.param('token', null) === token_of_user) {
       f_user = user;
     }
   });
