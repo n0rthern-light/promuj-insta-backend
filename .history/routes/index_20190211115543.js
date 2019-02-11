@@ -134,7 +134,6 @@ router.post('/request_user_from_token', function(req, res, next){
     }
   });
 
-  console.log(f_user);
   if(f_user !== undefined) {
     res.statusCode = 200;
     res.send(f_user);
