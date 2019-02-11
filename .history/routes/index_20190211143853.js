@@ -149,6 +149,8 @@ router.post('/request_user_from_token', function(req, res, next){
   var users = db.get('users').value();
   var f_user = undefined;
   var key = '#m@RB^.q&Q.SP^.!';
+  var d = new Date();
+  var n = d.getUTCHours();
   var token = req.param('token', null);
   users.forEach(function(user){
     //user id + hashed pw + UTC h
