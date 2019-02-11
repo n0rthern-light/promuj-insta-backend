@@ -3,9 +3,17 @@
     {
       "id": "bN4TBC50S",
       "username": "szybka_zaba",
-      "password": "76c3c35cfd9090ca8d5f98ec3056a5518915dce0bb0df2d39131a70506a0a690",
-      "csrfToken": "usWWzL45HPDrwaoQmF3M9yWZ2u8ulrpW",
-      "sessionId": "8547510660%3AmlBryLGxFU5SWM%3A0",
+      "password": "530a8f6bd1d2c55000ecd53073f108c1b82e774a1d9138cc524e1836de3752af",
+      "csrfToken": "z3z254mogKZwlTXoF22YjqZrSJON8ssF",
+      "sessionId": "8547510660%3AHmG80KAWFVZgsU%3A23",
+      "isActive": true
+    },
+    {
+      "id": "ERRTwJqNh",
+      "username": "moneybot187",
+      "password": "3b1ce7622c17a5a9221eeb68e2b8d3310b751ae9f06301fedc8dd9784ee6886d",
+      "csrfToken": "NWFe9nlgF2PK4NPJjXfjJ7BSKR34fgVp",
+      "sessionId": "1381938554%3AOGErpq72xpzbDt%3A0",
       "isActive": true
     }
   ]

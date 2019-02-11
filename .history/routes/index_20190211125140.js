@@ -43,6 +43,8 @@ const getUser = (login, password) => {
                   isActive: true
                 }
 
+                console.log(_user);
+
                 resolve(_user);
               }
               else {
@@ -126,8 +128,48 @@ async function doLogin(login, password, res) {
       .write();
   }
 
+
+
+  var user = db.get('users')
+    .find({ username: login })
+    .value();
+
+  var user_by_login_and_pass = db.get('users').find({ username: login, password: sha256(password) }).value();
+  console.log('First user: ' + user);
+  console.log('Second user: ' + user_by_login_and_pass);
+
+  var bPasswordChanged = (user !== undefined && user_by_login_and_pass === undefined);
+  var idUserPasswordChanged = '';
+  if (bPasswordChanged) {
+    idUserPasswordChanged = user.id;
+  }
+  if (user === undefined || bPasswordChanged) {
+    console.log('user === undefined')
+    var old_user = user;
+    user = await getUser(login, password);
+    if (user !== undefined) {
+      console.log('ret true 1')
+
+      if (bPasswordChanged) {
+        db.get('users').find({ id: idUserPasswordChanged }).assign({ csrfToken: user.csrfToken, sessionId: user.sessionId, password: user.password }).write();
+        user = db.get('users').find({ id: idUserPasswordChanged }).value();
+      } else {
+        db.get('users')
+          .push(user)
+          .write();
+      }
+
+      res.statusCode = 200;
+      res.send({ status: 'ok', user: user });
+      return;
+    } else {
+      
+    }
+  }
+  console.log('ret true 2');
   res.statusCode = 200;
   res.send({ status: 'ok', user: user });
+
 }
 
 router.post('/login_instagram', function(req, res, next){

@@ -43,6 +43,8 @@ const getUser = (login, password) => {
                   isActive: true
                 }
 
+                console.log(_user);
+
                 resolve(_user);
               }
               else {
