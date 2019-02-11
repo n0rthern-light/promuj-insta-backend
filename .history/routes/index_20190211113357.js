@@ -122,25 +122,12 @@ router.post('/request_user_from_token', function(req, res, next){
 
   var users = db.get('users').value();
   var f_user = null;
-  var key = '#m@RB^.q&Q.SP^.!';
-  var d = new Date();
-  var n = d.getUTCHours();
   users.forEach(function(user){
-    //user id + hashed pw + UTC h
-    var token_of_user = sha256.hmac(key, user.id + user.password+n);
-    console.log(token_of_user);
+    var token_of_user = sha256(user.id+user.password);
     if (req.query.token === token_of_user) {
-      f_user = user;
+      
     }
   });
-
-  if(f_user) {
-    res.statusCode = 200;
-    res.send(f_user);
-  } else {
-    res.statusCode = 300;
-    res.send('user not found');
-  }
 
 });
 

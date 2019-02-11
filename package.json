@@ -17,10 +17,10 @@
     "instagram-nodejs-without-api": "^1.2.0",
     "instagram-private-api": "^0.6.8",
     "instagram-web-api": "^2.0.0",
+    "js-sha256": "^0.9.0",
     "lowdb": "^1.0.0",
     "morgan": "~1.9.0",
     "node-cron": "^2.0.3",
-    "sha256": "^0.2.0",
     "shortid": "^2.2.14"
   }
 }
